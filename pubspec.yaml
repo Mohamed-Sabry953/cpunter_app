@@ -37,6 +37,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   speech_to_text: ^6.1.1
   flutter_native_splash: ^2.2.19
+  bloc: ^8.1.2
+  flutter_bloc: ^8.1.3
+  flutter_screenutil: ^5.7.0
 
 flutter_native_splash:
   android: true
