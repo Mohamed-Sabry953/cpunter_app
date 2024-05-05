@@ -5,9 +5,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyHomePage extends StatelessWidget {
   @override
+    int helloCounter=0;
+    int goodCounter=0;
   Widget build(BuildContext context) {
     return BlocProvider(create: (context) => SpeechCubit()..initSpeech(),
-    child: BlocBuilder<SpeechCubit,SpeechState>(
+    child: BlocConsumer<SpeechCubit,SpeechState>(
       builder: (context, state) {
         return Scaffold(
           body: Column(
@@ -17,7 +19,7 @@ class MyHomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    SpeechCubit.get(context).helloCounter.toString(),
+                    helloCounter.toString(),
                     style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500),
                   ),
                   Text(
@@ -29,7 +31,7 @@ class MyHomePage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text( SpeechCubit.get(context).goodMorningCounter.toString(),
+                  Text( goodCounter.toString(),
                       style:
                       TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500)),
                   Text(": عدد مرات صباح الخير ",
@@ -66,6 +68,15 @@ class MyHomePage extends StatelessWidget {
             ],
           ),
         );
+      },
+      listener: (context, state) {
+        if(state is SpeechGoodMorningState ){
+          goodCounter+=SpeechCubit.get(context).goodMorningCounter-1;
+
+        }
+        if(state is SpeechHelloState ){
+          helloCounter+=SpeechCubit.get(context).helloCounter;
+        }
       },
     ),);
   }

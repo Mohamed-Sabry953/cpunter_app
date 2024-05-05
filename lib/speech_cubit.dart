@@ -35,6 +35,7 @@ class SpeechCubit extends Cubit<SpeechState> {
        default :
          lastWords="";
      }
+     startListening();
   }
 
   void startListening() async {
@@ -43,8 +44,9 @@ class SpeechCubit extends Cubit<SpeechState> {
   }
 
   void stopListening() async {
+    goodMorningCounter=0;
+    helloCounter=0;
     await speechToText.stop();
     emit(SpeechStopState());
-    print(goodMorningCounter.toString());
   }
 }
