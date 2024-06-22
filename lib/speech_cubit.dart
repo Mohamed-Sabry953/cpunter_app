@@ -13,33 +13,32 @@ class SpeechCubit extends Cubit<SpeechState> {
   String lastWords = '';
   int helloCounter = 0;
   int goodMorningCounter = 0;
-  Set<String>morning={};
-  List<String>goodMorning=[];
-
   void initSpeech() async {
     speechEnabled = await speechToText.initialize();
     emit(SpeechInitial());
   }
    onSpeechResult(SpeechRecognitionResult result) async {
        lastWords =  result.recognizedWords;
-    emit(SpeechTOTextSucState());
      switch(lastWords){
-       case "صباح الخير":
-         goodMorningCounter++;
-         emit(SpeechGoodMorningState());
-         break;
        case "السلام عليكم":
          helloCounter++;
+         lastWords="";
          emit(SpeechHelloState());
+
+         break;
+       case "صباح الخير":
+         goodMorningCounter++;
+         lastWords="";
+         emit(SpeechGoodMorningState());
          break;
        default :
          lastWords="";
+         startListening();
      }
-     startListening();
   }
-
   void startListening() async {
     await speechToText.listen(onResult: onSpeechResult);
+    lastWords="";
     emit(SpeechStartState());
   }
 

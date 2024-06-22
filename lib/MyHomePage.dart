@@ -19,7 +19,7 @@ class MyHomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    helloCounter.toString(),
+                    SpeechCubit.get(context).helloCounter.toString(),
                     style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500),
                   ),
                   Text(
@@ -31,7 +31,7 @@ class MyHomePage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text( goodCounter.toString(),
+                  Text( (SpeechCubit.get(context).goodMorningCounter/2).toString().substring(0,1),
                       style:
                       TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w500)),
                   Text(": عدد مرات صباح الخير ",
@@ -71,11 +71,11 @@ class MyHomePage extends StatelessWidget {
       },
       listener: (context, state) {
         if(state is SpeechGoodMorningState ){
-          goodCounter+=SpeechCubit.get(context).goodMorningCounter-1;
+          SpeechCubit.get(context).startListening();
 
         }
         if(state is SpeechHelloState ){
-          helloCounter+=SpeechCubit.get(context).helloCounter;
+          SpeechCubit.get(context).startListening();
         }
       },
     ),);

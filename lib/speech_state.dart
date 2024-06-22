@@ -9,3 +9,4 @@ class SpeechTOTextSucState extends SpeechState {}
 class SpeechStopState extends SpeechState {}
 class SpeechHelloState extends SpeechState {}
 class SpeechGoodMorningState extends SpeechState {}
+class SpeechStartAgainState extends SpeechState {}
